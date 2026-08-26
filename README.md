@@ -32,11 +32,15 @@ App: http://localhost:5173 · API health: http://localhost:3001/api/health
 
 ## Google Cloud
 
-Enable on the same project:
+Enable these three APIs on the same project:
 
-- **Maps JavaScript API** (browser key → `VITE_GOOGLE_MAPS_API_KEY`)
-- **Geocoding API** (server key → `GOOGLE_MAPS_API_KEY`)
-- **Places API (New)** (same server key)
+| API | Key | Why |
+|---|---|---|
+| **Maps JavaScript API** | Browser → `VITE_GOOGLE_MAPS_API_KEY` | Draw the map, the rectangle, and the pins in the browser |
+| **Geocoding API** | Server → `GOOGLE_MAPS_API_KEY` | City default box, and lat/lng for shops with empty coordinates |
+| **Places API (New)** | Same server key | Nearby Search to find competitor shops inside the box |
+
+Maps JS never goes through Express. Geocoding and Places stay on the backend so the billable key is not in the browser.
 
 Restrict the browser key to `http://localhost:5173/*`. Never commit `.env`.
 
